@@ -1,0 +1,4 @@
+Create a Store (Context)
+Provide Values from the Store using a Provider
+Consume (Use) Values from the Store using a Consumer or useContext Hook
+Wrap the Consumer with the Provider to make values accessible
