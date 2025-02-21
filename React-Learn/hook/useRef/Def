@@ -1,0 +1,4 @@
+`useRef` is a React hook that is used to store any value without causing a re-render. It is mainly used for two things:
+
+1. To give a reference to DOM elements
+2. To store a value without re-rendering the component**("If we need to store a value that does not change when the component re-renders.")
