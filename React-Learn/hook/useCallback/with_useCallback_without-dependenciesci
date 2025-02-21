@@ -1,0 +1,18 @@
+// function will not be re render , because of empty [] (dependencies)
+
+import { useState, useCallback } from "react";
+function UseCallback() {
+  const [count, setCount] = useState(0);
+  console.log("Component re-rendered");
+  const handleClick = useCallback(() => {
+    console.log("Clicked me");
+  }, []);
+  return (
+    <div>
+      <h1>Count : {count}</h1>
+      <button onClick={() => setCount((c) => c + 1)}>Increment</button>
+      <button onClick={handleClick}>Click</button>
+    </div>
+  );
+}
+export default UseCallback;
