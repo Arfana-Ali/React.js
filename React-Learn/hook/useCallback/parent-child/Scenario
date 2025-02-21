@@ -1,0 +1,5 @@
+Parent component me ek function hai jo
+child component ko props ke through pass ho raha hai.
+Agar hum useCallback use nahi karenge, 
+toh har render pe function ka naya reference create hoga,
+jo unnecessary re-renders cause karega.
