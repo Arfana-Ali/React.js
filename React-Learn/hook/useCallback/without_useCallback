@@ -1,0 +1,17 @@
+// component will be re render everytime when it is clicked
+import { useState } from "react";
+function UseCallback() {
+  const [count, setCount] = useState(0);
+  function handleClick(){
+    console.log("Clicked me!")
+  }
+// console.log("Component re-rendered");
+  return (
+    <div>
+      <h1>Count : {count}</h1>
+      <button onClick={() => setCount((c) => c + 1)}>Increment</button>
+      <button onClick={handleClick}>Click</button>
+    </div>
+  );
+}
+export default UseCallback;
