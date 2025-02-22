@@ -1,4 +1,5 @@
 To give a reference to DOM elements
+(Ref is used to directly access any DOM element.)
 
 import { useRef } from "react";
 function UseRef() {
