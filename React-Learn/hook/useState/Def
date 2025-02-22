@@ -1,0 +1,2 @@
+useState -  use to state management , re-render component
+It stores the value of any variable (state), and whenever the value changes,
