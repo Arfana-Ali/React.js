@@ -1,0 +1,51 @@
+// 1 create store
+
+import { createContext } from "react";
+
+const MyStore = createContext();
+export default MyStore;
+
+// 2 provide from store
+
+import MyStore from "./Store";
+import { useState } from "react";
+
+const MyProvider = ({children}) =>{
+    const [user,setUser] = useState("Arfana")
+    return (
+        <MyStore.Provider value={{user,setUser}} >{children}</MyStore.Provider>
+    )
+}
+export default MyProvider
+
+// 3 wrap component from stor in App.jsx
+
+import MyProvider from "./Provider";
+import Home from "./Home";
+function App(){
+  return (
+    <MyProvider>
+        <Home/>
+      
+    </MyProvider>
+  )
+}
+export default App;
+
+
+// 4 useStore from useContext hook
+
+import { useContext } from "react"
+import MyStore from "./Store"
+
+function Home(){
+
+const  {user , setUser} = useContext(MyStore);
+     return (
+        <div>
+            <h1>Hello {user}</h1>
+            <button onClick={()=> setUser( u => u.replace(u , "ALi") )} >Change Name</button>
+        </div>
+     )
+    }
+export default Home
