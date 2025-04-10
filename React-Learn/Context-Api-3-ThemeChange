@@ -1,0 +1,67 @@
+// 1 create store
+
+import { createContext } from "react";
+
+const StoreTheme = createContext();
+
+export default StoreTheme
+
+// 2 provide store (what state you want to provide)
+
+import StoreTheme from "./Store";
+import { useState } from "react";
+
+const ThemeProvider = ({children})=>{
+    const [theme, setTheme] = useState("light")
+    const toggleTheme = () =>{
+        setTheme(t => t === "light" ? "dark" : "light")
+    }
+    return (
+        <StoreTheme.Provider value={{theme , toggleTheme}} >{children}</StoreTheme.Provider>
+    )
+}
+
+export default ThemeProvider;
+
+// 3 wrap children in provider in App.jsx
+
+import ThemeProvider from "./Provider"
+import Home from "./Home"
+
+function App(){
+  return (
+<ThemeProvider>
+  <Home/>
+</ThemeProvider>
+  )
+}
+
+export default App
+
+// 4 useContext in children component
+
+import { useContext } from "react"
+import StoreTheme from "./Store"
+import { FaStar } from "react-icons/fa";
+function Home(){
+
+    const {theme , toggleTheme} = useContext(StoreTheme)
+
+   const styles = {
+    backgroundColor : theme === "light" ? "white" : "black",
+    color : theme === "light" ? "black" : "white",
+    height : "100vh",
+    padding : "20px"
+   
+   }
+
+    return(
+<div style={styles}>
+   
+    <h1>{theme} mode</h1>
+    <button onClick={toggleTheme}> <FaStar/></button>
+</div>
+
+    )
+}
+export default Home
