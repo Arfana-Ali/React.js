@@ -1,0 +1,75 @@
+1
+
+import { createContext } from "react";
+
+const UserStore =  createContext();
+
+export default UserStore
+
+
+2
+
+
+import { useState } from "react"
+import UserStore from "./UserStore"
+import PropTypes from "prop-types"
+
+const UserProvider = ({children})=>{
+
+const [user , setUser] = useState("")
+    return(
+    <UserStore.Provider value={{user , setUser}}>
+        {children}
+    </UserStore.Provider>
+    )
+}
+export default UserProvider
+
+UserProvider.propTypes = {
+    children : PropTypes.node.isRequired
+}
+
+
+3
+
+import UserProvider from "./UserProvider";
+import User from "./User";
+function App(){
+  return (
+    <UserProvider><User /></UserProvider>
+  )
+}
+export default App;
+
+4
+
+
+import { useContext ,useState } from "react"
+import UserStore from "./UserStore"
+
+function User(){
+const {user ,setUser} =    useContext(UserStore);
+const [fName , setFName] = useState("");
+const [lname , setLName] = useState("")
+const handleFirstName = (e) =>{
+setFName(e.target.value)
+}
+const handleLastName = (e) =>{
+setLName(e.target.value)
+}
+
+const HandleClick = () =>{
+setUser(`${fName} ${lname}`)
+setFName("")
+setLName("")
+}
+    return(
+        <div>
+            User : {user} <br />
+            <input type="text" placeholder="Enter First Name" value={fName} onChange={handleFirstName} />
+            <input type="text" placeholder="Enter Last Name" value={lname} onChange={handleLastName} />
+            <button onClick={HandleClick}>Add</button>
+        </div>
+    )
+}
+export default User
