@@ -1,0 +1,77 @@
+//////// UserStore.jsx
+
+import { createContext } from "react";
+
+const UserStore =  createContext();
+
+export default UserStore
+
+
+////////////// UserProvider.jsx
+
+import { useState } from "react"
+import UserStore from "./UserStore"
+import PropTypes from "prop-types"
+
+const UserProvider = ({children})=>{
+
+const [user , setUser] = useState("")
+    return(
+    <UserStore.Provider value={{user , setUser}}>
+        {children}
+    </UserStore.Provider>
+    )
+}
+export default UserProvider
+
+UserProvider.propTypes = {
+    children : PropTypes.node.isRequired
+}
+
+
+/////////////////// App.jsx
+
+import UserProvider from "./UserProvider";
+import User from "./User";
+function App(){
+  return (
+    <UserProvider><User /></UserProvider>
+  )
+}
+export default App;
+
+///////////////////// User.jsx
+
+
+import { useContext , useState } from "react"
+import UserStore from "./UserStore"
+
+
+function User(){
+  const {user , setUser} =   useContext(UserStore);
+  const [person , setPerson] = useState({firstName : "" , lastName : ""})
+
+ const HandleChange = (e) =>{
+    const {name , value} = e.target;
+    setPerson(p => ({...p , [name] : value}))
+ }
+
+ const HandleClick = ()=>{
+    setUser(`${person.firstName} ${person.lastName}`)
+    setPerson({firstName : "" , lastName : ""})
+ }
+  return (
+    <div>
+        User : {user} <br />
+        <input type="text" placeholder="Enter User Name" name="firstName" value={person.firstName} onChange={HandleChange} /> 
+        <input type="text" placeholder="Enter Last Name" name="lastName" value={person.lastName} onChange={HandleChange}/>
+        <button onClick={HandleClick}>Add</button>
+    </div>
+  )
+
+}
+export default User
+
+
+
+
