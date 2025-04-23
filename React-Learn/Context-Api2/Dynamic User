@@ -1,0 +1,74 @@
+////////////// UserStore.jsx
+
+
+import { createContext } from "react";
+
+const UserStore =  createContext();
+
+export default UserStore
+
+
+/////////////// UserProvider.jsx
+
+import { useState } from "react"
+import UserStore from "./UserStore"
+import PropTypes from "prop-types"
+
+const UserProvider = ({children})=>{
+
+const [user , setUser] = useState("")
+    return(
+    <UserStore.Provider value={{user , setUser}}>
+        {children}
+    </UserStore.Provider>
+    )
+}
+export default UserProvider
+
+UserProvider.propTypes = {
+    children : PropTypes.node.isRequired
+}
+
+
+
+////////// App.jsx
+import UserProvider from "./UserProvider";
+import User from "./User";
+function App(){
+  return (
+    <UserProvider><User /></UserProvider>
+  )
+}
+export default App;
+
+
+
+////////////////User.jsx
+
+
+import { useContext , useState } from "react"
+import UserStore from "./UserStore"
+
+
+function User(){
+  const {user , setUser} =   useContext(UserStore);
+  const [person , setPerson] = useState("")
+
+ const HandleChange = (e) =>{
+    setPerson(p => p.replace(p, e.target.value ))
+ }
+
+ const HandleClick = ()=>{
+    setUser(u => u.replace(u, person))
+    setPerson("")
+ }
+  return (
+    <div>
+        User : {user} <br />
+        <input type="text" placeholder="Enter User Name" value={person} onChange={HandleChange} /> 
+        <button onClick={HandleClick}>Add</button>
+    </div>
+  )
+
+}
+export default User
